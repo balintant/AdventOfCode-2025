@@ -8,12 +8,14 @@ import "package://github.com/jdx/hk/releases/download/v1.25.0/hk@1.25.0#/Builtin
 local linters = new Mapping<String, Step> {
   ["ruff"] {
     glob = List("**/*.py", "**/*.pyi")
+    stage = List("**/*.py", "**/*.pyi")
     check = "mise exec -- ruff check --force-exclude"
     fix = "mise exec -- ruff check --force-exclude --fix"
     batch = true
   }
   ["ruff_format"] {
     glob = List("**/*.py", "**/*.pyi")
+    stage = List("**/*.py", "**/*.pyi")
     check = "mise exec -- ruff format --check --force-exclude"
     fix = "mise exec -- ruff format --force-exclude"
     depends = "ruff"
