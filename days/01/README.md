@@ -9,7 +9,7 @@ The puzzle involves simulating a safe dial with positions 0-99. Starting at posi
 
 ## Solution Approach
 
-### Part 1 ([solution_part1.py](solution_part1.py))
+### Part 1 ([part_1.py](part_1.py))
 The solution uses modulo arithmetic to handle the circular nature of the dial:
 - **Left rotation**: `position = (position - distance) % 100`
 - **Right rotation**: `position = (position + distance) % 100`
@@ -17,7 +17,7 @@ The solution uses modulo arithmetic to handle the circular nature of the dial:
 
 The modulo operation ensures proper wrapping at the boundaries (0 ↔ 99).
 
-### Part 2 ([solution_part2.py](solution_part2.py))
+### Part 2 ([part_2.py](part_2.py))
 For each rotation, iterate through every click and check if it lands on 0:
 - For left rotation: Check positions `(position - 1) % 100`, `(position - 2) % 100`, ..., `(position - distance) % 100`
 - For right rotation: Check positions `(position + 1) % 100`, `(position + 2) % 100`, ..., `(position + distance) % 100`
@@ -58,13 +58,13 @@ This brute-force approach is straightforward and handles all edge cases correctl
 
 ```bash
 # Part 1
-python3 solution_part1.py              # Uses input.txt
-python3 solution_part1.py custom.txt   # Uses custom input
+python3 part_1.py              # Uses input.txt
+python3 part_1.py custom.txt   # Uses custom input
 
 # Part 2
-python3 solution_part2.py              # Uses input.txt
-python3 solution_part2.py --debug      # Debug with example data
-python3 solution_part2.py custom.txt   # Uses custom input
+python3 part_2.py              # Uses input.txt
+python3 part_2.py --debug      # Debug with example data
+python3 part_2.py custom.txt   # Uses custom input
 
 # Run tests
 python3 test.py

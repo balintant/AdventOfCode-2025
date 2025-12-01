@@ -18,10 +18,10 @@ cd days/$DAY
 
 if [ -n "$2" ]; then
   # Run specific part
-  python3 solution_part$2.py 2>/dev/null || python3 -c "from solution import solve_part$2; print(solve_part$2([line.strip() for line in open('input.txt')]))"
+  python3 part_$2.py 2>/dev/null || python3 -c "from solution import solve_part$2; print(solve_part$2([line.strip() for line in open('input.txt')]))"
 else
   # Run all parts
-  for f in solution_part*.py; do
+  for f in part_*.py; do
     [ -e "$f" ] && python3 "$f"
   done 2>/dev/null || python3 -c "import solution, inspect; data = [line.strip() for line in open('input.txt')]; [print(fn(data)) for _, fn in sorted([(int(n.replace('solve_part','')), f) for n, f in inspect.getmembers(solution) if n.startswith('solve_part') and callable(f)])]"
 fi

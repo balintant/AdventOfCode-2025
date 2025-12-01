@@ -16,8 +16,8 @@ AdventOfClaude-2025/
 └── days/               # All daily solutions
     ├── 01/             # Day 1 puzzle solution
     │   ├── INSTRUCTIONS.md    # Puzzle description
-    │   ├── solution_part1.py  # Part 1 solution
-    │   ├── solution_part2.py  # Part 2 solution
+    │   ├── part_1.py          # Part 1 solution
+    │   ├── part_2.py          # Part 2 solution
     │   ├── test.py            # Test suite
     │   ├── input.txt          # Puzzle input (user-specific)
     │   └── README.md          # Solution documentation
@@ -28,8 +28,8 @@ AdventOfClaude-2025/
 
 Each day's directory contains:
 - **INSTRUCTIONS.md** - The puzzle story and task description from Advent of Code
-- **solution_part1.py** - Part 1 solution that prints only the raw answer (for easy piping)
-- **solution_part2.py** - Part 2 solution that prints only the raw answer (for easy piping)
+- **part_1.py** - Part 1 solution that prints only the raw answer (for easy piping)
+- **part_2.py** - Part 2 solution that prints only the raw answer (for easy piping)
 - **test.py** - Comprehensive test suite with example cases and edge cases
 - **input.txt** - Personal puzzle input from Advent of Code
 - **README.md** - Documentation of the approach, insights, and results
@@ -60,14 +60,14 @@ Navigate to any day's directory and run:
 cd days/01
 
 # Run solutions (outputs raw answer)
-python3 solution_part1.py
-python3 solution_part2.py
+python3 part_1.py
+python3 part_2.py
 
 # Copy answer directly to clipboard (macOS)
-python3 solution_part2.py | pbcopy
+python3 part_2.py | pbcopy
 
 # Run with custom input
-python3 solution_part1.py custom_input.txt
+python3 part_1.py custom_input.txt
 
 # Run all tests
 python3 test.py

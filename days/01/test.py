@@ -3,8 +3,8 @@
 Tests for Day 1: Secret Entrance
 """
 
-from solution_part1 import solve as solve_part1
-from solution_part2 import solve as solve_part2
+from part_1 import solve as solve_part1
+from part_2 import solve as solve_part2
 
 
 def test_example_part1():
