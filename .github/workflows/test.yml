@@ -28,5 +28,5 @@ jobs:
             hk run check --to-ref "origin/${{ github.base_ref }}"
           else
             # For pushes to main, test everything
-            hk run check
+            hk run check --all
           fi
