@@ -1,0 +1,52 @@
+/// Git hooks configuration for Advent of Code 2025
+/// Runs tests separately for each day with staged changes
+/// Lints and formats Python code with ruff
+
+amends "package://github.com/jdx/hk/releases/download/v1.25.0/hk@1.25.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.25.0/hk@1.25.0#/Builtins.pkl"
+
+local linters = new Mapping<String, Step> {
+  ["ruff"] {
+    glob = List("**/*.py", "**/*.pyi")
+    check = "mise exec -- ruff check --force-exclude"
+    fix = "mise exec -- ruff check --force-exclude --fix"
+    batch = true
+  }
+  ["ruff_format"] {
+    glob = List("**/*.py", "**/*.pyi")
+    check = "mise exec -- ruff format --check --force-exclude"
+    fix = "mise exec -- ruff format --force-exclude"
+    depends = "ruff"
+  }
+}
+
+local tests = new Mapping<String, Step> {
+  ["test"] {
+    glob = List("**/*.py")
+    workspace_indicator = "test.py"
+    check = "cd {{ workspace }} && mise exec -- python3 test.py"
+  }
+}
+
+local all = new Mapping<String, Step> {
+  ...linters
+  ...tests
+}
+
+hooks {
+  ["pre-commit"] {
+    stash = "git"
+    fix = true
+    steps = all
+  }
+  ["pre-push"] {
+    steps = tests
+  }
+  ["check"] {
+    steps = all
+  }
+  ["fix"] {
+    fix = true
+    steps = linters
+  }
+}

@@ -1,0 +1,36 @@
+[hooks.postinstall]
+script = "hk install"
+
+[settings]
+experimental = true
+
+[tasks.solve]
+description = "Run solution for a specific day (e.g., mise run solve 01)"
+run = """
+#!/usr/bin/env bash
+if [ -z "$1" ]; then
+  echo "Usage: mise run solve <day>"
+  echo "Example: mise run solve 01"
+  exit 1
+fi
+DAY=$(printf "%02d" $1)
+cd "days/$DAY" && python3 solution.py
+"""
+
+[tasks.test]
+description = "Run tests (optionally for a specific day, e.g., mise run test 01)"
+run = """
+#!/usr/bin/env bash
+if [ -z "$1" ]; then
+  hk check --all
+else
+  DAY=$(printf "%02d" $1)
+  hk check --glob="days/$DAY/**"
+fi
+"""
+
+[tools]
+hk = "1.25.0"
+pkl = "0.30.0"
+python = "3.13"
+ruff = "latest"
