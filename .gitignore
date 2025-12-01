@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# VSCode - User-specific settings managed by workspace-config-plus
+.vscode/settings.json
+.vscode/*.local.json
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

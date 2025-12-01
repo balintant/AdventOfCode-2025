@@ -112,3 +112,60 @@ Each day's `README.md` should include:
 4. **Test Cases** - Description of test cases and edge cases covered
 5. **Results** - Final answers for Part 1 (and Part 2 when available)
 6. **Running Instructions** - How to run the solution
+
+## Documentation Maintenance
+
+**CRITICAL**: Avoid redundant documentation. Each piece of information should exist in ONE authoritative location.
+
+### Single Source of Truth
+
+- **Tool versions and dependencies** → [mise.toml](mise.toml) only
+- **VSCode extensions** → [.vscode/extensions.json](.vscode/extensions.json) only
+- **VSCode settings** → [.vscode/settings.shared.json](.vscode/settings.shared.json) only
+- **Running solutions** → Day's README.md and CLAUDE.md should reference mise tasks, not duplicate commands
+- **Project structure** → README.md only
+- **Code templates** → CLAUDE.md only
+- **Daily solutions** → Day's README.md only
+
+### When to Update Documentation
+
+You MUST update relevant documentation files when making changes:
+
+1. **Project-level changes** → Update [README.md](README.md):
+   - Adding new capabilities or features
+   - Modifying project structure
+   - Changing the progress table
+   - **Reference** other files (mise.toml, .vscode/*) rather than duplicating their content
+
+2. **Day-level changes** → Update `days/NN/README.md`:
+   - Implementing Part 2 of a puzzle
+   - Optimizing the solution approach
+   - Adding new test cases
+   - Discovering new insights
+   - Updating final answers
+
+3. **Workflow changes** → Update [CLAUDE.md](CLAUDE.md):
+   - Modifying code templates or structure
+   - Adding new best practices
+   - Changing testing approaches
+   - Updating development patterns
+
+### Documentation Update Process
+
+When making changes:
+1. **Identify** the single authoritative location for this information
+2. **Update** only that location
+3. **Reference** (don't duplicate) that location from other docs if needed
+4. **Remove** any redundant copies of the same information
+5. **Verify** that examples and instructions still work
+
+### Examples
+
+- ✅ Added tool dependency → Update mise.toml, reference it from README
+- ❌ Added tool dependency → Update mise.toml AND copy version to README
+- ✅ Changed VSCode extension → Update extensions.json
+- ❌ Changed VSCode extension → Update extensions.json AND list it in README
+- ✅ Solved Part 2 → Update day's README.md and project progress table
+- ✅ Changed test approach → Update CLAUDE.md only
+
+**Remember**: Documentation is code. Each fact should exist in exactly one place.

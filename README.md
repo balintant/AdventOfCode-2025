@@ -80,12 +80,51 @@ All solutions follow consistent patterns:
 - Separation of concerns (parsing, logic, I/O)
 - Modular functions that can be tested independently
 
+## Setup
+
+### Prerequisites
+
+1. **Install mise** - Tool version manager for Python and other dependencies
+   ```bash
+   curl https://mise.run | sh
+   ```
+   See [mise.jdx.dev](https://mise.jdx.dev) for other installation methods.
+
+2. **Install dependencies** - All tools and versions are defined in [mise.toml](mise.toml)
+   ```bash
+   mise install
+   ```
+
+3. **VSCode (recommended)** - Open the project and search for `@recommended` in Extensions to install
+   - Configuration is stored in [.vscode/settings.shared.json](.vscode/settings.shared.json)
+   - Extensions listed in [.vscode/extensions.json](.vscode/extensions.json)
+
+### Quick Start
+
+```bash
+# Clone and setup
+git clone <repository-url>
+cd advent-of-code-2025
+mise install
+
+# Run a day's solution
+mise run solve 01
+
+# Run tests for a specific day
+mise run test 01
+
+# Run all tests
+mise run test
+```
+
 ## Technologies
 
-- **Language**: Python 3
+- **Tool Management**: [mise](https://mise.jdx.dev) - See [mise.toml](mise.toml) for versions
+- **Language**: Python 3.13 (standard library only, no external dependencies)
 - **IDE**: VSCode with Claude Code extension
 - **AI Assistant**: Claude (Sonnet 4.5)
 - **Testing**: Custom test functions with assertions
+- **Linting**: Ruff
 
 ## Why This Matters
 
