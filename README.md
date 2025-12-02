@@ -161,7 +161,7 @@ This project demonstrates:
 | Day | Status | Part 1 | Part 2 |
 |-----|--------|--------|--------|
 | 1   | ✅     | 1105   | 6599   |
-| 2   | -      | -      | -      |
+| 2   | ✅     | 29940924880 | 48631958998 |
 | ... | -      | -      | -      |
 
 ## About Advent of Code
