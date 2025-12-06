@@ -117,6 +117,84 @@ from part_2 import solve as solve_part2
    - Verify your parsing is correct
    - Test with hand-calculated examples
 
+### Debugging Structured Text and Whitespace-Sensitive Problems
+
+**CRITICAL**: When dealing with problems involving columns, positions, alignment, or any whitespace-dependent structure:
+
+**Core Principle: Inspect Before Reasoning**
+- **Never reason about whitespace you cannot see**
+- Your mental model may trim or collapse spaces automatically
+- Always write code to make whitespace visible BEFORE implementing logic
+
+**Red Flags** (trigger this protocol immediately):
+- Words like "column", "position", "aligned", "vertical", "spacing"
+- Example outputs that show specific character positions
+- Problems where spaces are part of the data structure (not just delimiters)
+- Any time parsing "fails" but you can't see why
+
+**Mandatory First Step - Make Structure Visible:**
+
+```python
+# WRONG: Trying to understand structure from visual inspection
+# You cannot trust your mental representation of whitespace
+
+# RIGHT: Make whitespace explicit with code
+print("=== STRUCTURE INSPECTION ===")
+for i, line in enumerate(lines):
+    print(f'{i}: |{line}| len={len(line)}')
+    for j, char in enumerate(line):
+        print(f'  [{j}]="{char}" (ord={ord(char)})')
+```
+
+**After 2-3 Failed Attempts:**
+1. STOP trying new algorithms
+2. Write inspection code (as above)
+3. Show output to user
+4. Ask: "Does this match what you see?"
+5. Only proceed after confirming your view matches reality
+
+**Character-by-Character Debugging Pattern:**
+
+```python
+# When columns/positions matter, show exact character positions
+test_data = """ABC  DEF
+GHI   JK
++    *  """
+
+print("Character grid:")
+for row_idx, line in enumerate(test_data.split('\n')):
+    print(f"Row {row_idx}:")
+    for col_idx, char in enumerate(line):
+        print(f"  [{col_idx}] = '{char}' (space={char == ' '})")
+```
+
+**Verification Checklist:**
+- ✅ Can you see every space character explicitly?
+- ✅ Do you know the exact length of each line?
+- ✅ Can you point to specific character indices?
+- ✅ Have you verified trailing/leading spaces are preserved?
+- ❌ Are you assuming alignment based on visual appearance?
+- ❌ Are you using split() when character positions matter?
+
+**Common Mistakes:**
+1. Using `split()` when exact positions matter (split() removes spacing information)
+2. Using `strip()` on lines that need trailing spaces preserved
+3. Assuming visual alignment in markdown/terminal matches actual characters
+4. Reasoning about "columns" without verifying character indices
+
+**Recovery Protocol:**
+1. Write code to dump structure with delimiters: `|{line}|`
+2. Show character-by-character breakdown with indices
+3. Verify with user that your view matches theirs
+4. Only then implement parsing logic
+5. Test on simplest possible example first
+
+**Example - Day 6 Learning:**
+- Problem involved character columns where spacing was structural
+- Initial attempts failed because whitespace wasn't visible in mental model
+- Solution: Explicit character position inspection revealed the true structure
+- Lesson: Code-first debugging for whitespace > visual reasoning
+
 ### Common Patterns
 
 - Parse input data carefully (mind trailing newlines, number formatting)
