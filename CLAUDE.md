@@ -89,12 +89,41 @@ from part_1 import solve as solve_part1
 from part_2 import solve as solve_part2
 ```
 
+### Problem-Solving Protocol
+
+**CRITICAL**: Before writing any code:
+
+1. **Read instructions completely**:
+   - Read the entire INSTRUCTIONS.md file carefully
+   - Note any hyperlinks or references to other problems/resources
+   - Use WebFetch to retrieve and understand any linked content
+   - The linked content may contain crucial context, special rules, or problem constraints
+
+2. **Understand the problem deeply**:
+   - Work through the provided example by hand
+   - Verify your understanding matches the expected output
+   - Identify edge cases and special conditions
+   - Never assume - if something is unclear, investigate thoroughly
+
+3. **Validate with examples first**:
+   - Always test against the provided example before running on actual input
+   - If the example fails, your understanding or implementation is wrong
+   - Debug with small, simple test cases first
+
+4. **When an answer is rejected**:
+   - "Too low" or "Too high" means your logic has a bug
+   - Re-read the instructions - you may have missed a detail
+   - Check if you're processing all the data
+   - Verify your parsing is correct
+   - Test with hand-calculated examples
+
 ### Common Patterns
 
 - Parse input data carefully (mind trailing newlines, number formatting)
 - Many puzzles involve grid/graph traversal, pathfinding, or dynamic programming
 - Consider performance for larger inputs (some puzzles require optimization)
 - Part 2 often requires rethinking Part 1's approach for efficiency
+- **When instructions reference external links, those links often contain critical information**
 
 ### File Structure Philosophy
 
@@ -265,6 +294,9 @@ When starting a new day's solution, follow this checklist:
 **Required actions:**
 1. ✅ Create day directory: `days/NN/` (NN = zero-padded day number: 01, 02, etc.)
 2. ✅ Add `INSTRUCTIONS.md` with the puzzle description
+   - **CRITICAL**: Read the INSTRUCTIONS.md completely and carefully
+   - **CRITICAL**: Check for and follow any hyperlinks in the instructions (e.g., references to related problems, external resources)
+   - **CRITICAL**: Use WebFetch to retrieve and understand any linked resources that might contain important context or rules
 3. ✅ Create `part_1.py` with Part 1 logic and proper docstring
    - **CRITICAL**: Verify URL is `https://adventofcode.com/2025/day/N` (year 2025, NOT 2024!)
 4. ✅ Create `test.py` with Part 1 tests using standard imports:
