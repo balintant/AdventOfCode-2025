@@ -4,6 +4,7 @@ Test suite for Day 6: Trash Compactor
 """
 
 from part_1 import solve as solve_part1
+from part_2 import solve as solve_part2
 
 
 def test_example_part1():
@@ -62,6 +63,26 @@ def test_two_problems_part1():
     print(f"✓ Two problems test passed: {result}")
 
 
+def test_example_part2():
+    """Test Part 2 with the example from puzzle instructions."""
+    example_input = """123 328  51 64
+ 45 64  387 23
+  6 98  215 314
+*   +   *   +  """
+
+    result = solve_part2(example_input)
+    expected = 3263827  # 1058 + 3253600 + 625 + 8544
+
+    # Break down the problems (reading right-to-left):
+    # Rightmost (col 15): 4 + 431 + 623 = 1058
+    # Second from right (col 12-14): 175 * 581 * 32 = 3253600
+    # Third from right (col 8-11): 8 + 248 + 369 = 625
+    # Leftmost (col 0-3): 356 * 24 * 1 = 8544
+
+    assert result == expected, f"Expected {expected}, got {result}"
+    print(f"✓ Example Part 2 test passed: {result}")
+
+
 def run_tests():
     """Run all test functions."""
     print("Running Part 1 tests...")
@@ -71,6 +92,12 @@ def run_tests():
     test_single_addition_part1()
     test_single_multiplication_part1()
     test_two_problems_part1()
+
+    print()
+    print("Running Part 2 tests...")
+    print()
+
+    test_example_part2()
 
     print()
     print("All tests passed! ✓")

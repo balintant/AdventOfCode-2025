@@ -37,11 +37,45 @@ The puzzle presents a unique format for math problems: they're arranged vertical
 - Single multiplication: Simple vertical multiplication test
 - Two problems: Multiple problems separated by space columns
 
+### Part 2
+
+**Algorithm**: [part_2.py](part_2.py)
+
+In Part 2, the cephalopod format reads numbers in a completely different way:
+
+1. **Character-by-character column parsing**: Instead of splitting by whitespace, parse the raw character positions
+2. **Right-to-left processing**: Process operators right-to-left through the worksheet
+3. **Number blocks extend rightward**: From each operator position, the number block extends rightward to the next operator (or end of line)
+4. **Each column forms one number**: Within a number block, each character column (reading top-to-bottom, spaces removed) forms one complete number
+5. **Process columns right-to-left**: Within each number block, process the character columns from right to left
+
+**Example breakdown** for the rightmost `+`:
+```
+ 64   (positions 12,13,14)
+ 23
+314
+ +
+```
+- Operator at column 12
+- Number block: columns 12-14 (rightward to end)
+- Process right-to-left:
+  - Column 14: ' ', ' ', '4' → "4"
+  - Column 13: '4', '3', '1' → "431"
+  - Column 12: '6', '2', '3' → "623"
+- Result: 4 + 431 + 623 = 1058
+
+**Key Insights**:
+- Must preserve exact spacing and character positions
+- Pad rows to same length for column alignment
+- Number blocks are defined by operator positions
+- Each character column is read vertically to form a number
+- Critical to scan rightward from operator, then process right-to-left
+
 ## Results
 
 **Part 1**: `5171061464548`
 
-**Part 2**: Not yet revealed
+**Part 2**: `10189959087258`
 
 ## Running Instructions
 
@@ -50,10 +84,16 @@ The puzzle presents a unique format for math problems: they're arranged vertical
 python3 part_1.py              # Uses input.txt by default
 python3 part_1.py custom.txt   # Use custom input file
 
+# Run Part 2
+python3 part_2.py              # Uses input.txt by default
+python3 part_2.py custom.txt   # Use custom input file
+
 # Run tests
 python3 test.py
 
 # Using mise
 mise run solve 6 1   # Run Part 1
+mise run solve 6 2   # Run Part 2
+mise run solve 6     # Run both parts
 mise run test 6      # Run tests
 ```
