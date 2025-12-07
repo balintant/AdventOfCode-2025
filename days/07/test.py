@@ -2,6 +2,7 @@
 """Test suite for Day 7: Laboratories"""
 
 from part_1 import solve as solve_part1
+from part_2 import solve as solve_part2
 
 
 def test_example_part1():
@@ -93,6 +94,76 @@ def test_no_splitters_part1():
     print("✓ No splitters: 0 splits")
 
 
+def test_example_part2():
+    """Test Part 2 with the provided example from the puzzle."""
+    data = [
+        ".......S.......",
+        "...............",
+        ".......^.......",
+        "...............",
+        "......^.^......",
+        "...............",
+        ".....^.^.^.....",
+        "...............",
+        "....^.^...^....",
+        "...............",
+        "...^.^...^.^...",
+        "...............",
+        "..^...^.....^..",
+        "...............",
+        ".^.^.^.^.^...^.",
+        "...............",
+    ]
+    result = solve_part2(data)
+    assert result == 40, f"Expected 40, got {result}"
+    print("✓ Example Part 2: 40 timelines")
+
+
+def test_single_split_part2():
+    """Test Part 2 with a single splitter."""
+    data = [
+        "...S...",
+        ".......",
+        "...^...",
+        ".......",
+    ]
+    result = solve_part2(data)
+    # One splitter creates 2 timelines (left and right)
+    assert result == 2, f"Expected 2, got {result}"
+    print("✓ Single split Part 2: 2 timelines")
+
+
+def test_two_sequential_splitters_part2():
+    """Test Part 2 with two splitters in sequence."""
+    data = [
+        "...S...",
+        ".......",
+        "...^...",
+        ".......",
+        "..^.^..",
+        ".......",
+    ]
+    result = solve_part2(data)
+    # First split: 2 paths (left, right)
+    # Each path hits another splitter: 2 * 2 = 4 total timelines
+    assert result == 4, f"Expected 4, got {result}"
+    print("✓ Two sequential splitters Part 2: 4 timelines")
+
+
+def test_no_splitters_part2():
+    """Test Part 2 with no splitters."""
+    data = [
+        "...S...",
+        ".......",
+        ".......",
+        ".......",
+    ]
+    result = solve_part2(data)
+    # No splits = 1 timeline (straight down)
+    assert result == 1, f"Expected 1, got {result}"
+    print("✓ No splitters Part 2: 1 timeline")
+
+
 def run_tests():
     """Run all test functions."""
     print("Running Part 1 tests...")
@@ -101,6 +172,13 @@ def run_tests():
     test_two_parallel_beams_part1()
     test_converging_beams_part1()
     test_no_splitters_part1()
+
+    print("\nRunning Part 2 tests...")
+    test_example_part2()
+    test_single_split_part2()
+    test_two_sequential_splitters_part2()
+    test_no_splitters_part2()
+
     print("\nAll tests passed!")
 
 
