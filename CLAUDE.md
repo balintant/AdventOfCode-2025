@@ -327,6 +327,8 @@ Each solution file should follow this structure:
 - Use modulo arithmetic for circular/wrapping problems (e.g., `(position + offset) % max_value`)
 - **IMPORTANT**: Only use Python standard library modules - no pip packages or external dependencies
 - **CRITICAL**: When changing code structure (splitting files, changing function names, etc.), immediately update the day's README.md in the same session
+- **Remove dead code**: After solving, review for unused functions created during exploration. Remove helper functions that duplicate logic or are never called.
+- **Add validation**: When making assumptions about data structure (e.g., "crossings come in pairs"), add explicit validation with clear error messages. Fail fast with descriptive errors rather than silently producing wrong results.
 
 ### Documentation (README.md)
 

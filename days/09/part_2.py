@@ -57,6 +57,13 @@ def compute_polygon_extent(red_tiles):
         v_crosses = sorted([x for typ, x, _ in crossings if typ == "v"])
 
         # Build intervals from vertical crossings (interior fill)
+        # For a closed polygon, vertical crossings must come in pairs
+        if len(v_crosses) % 2 != 0:
+            raise ValueError(
+                f"Odd number of vertical crossings at y={y}: {len(v_crosses)}. "
+                f"This indicates malformed polygon data."
+            )
+
         intervals = []
         for idx in range(0, len(v_crosses) - 1, 2):
             x_start = int(v_crosses[idx])
@@ -110,45 +117,6 @@ def point_in_polygon(x, y, edges):
             crossings += 1
 
     return crossings % 2 == 1
-
-
-def compute_x_range_at_y(y, edges):
-    """Compute x-ranges where polygon exists at given y."""
-    crossings = []
-
-    for (x1, y1), (x2, y2) in edges:
-        # Horizontal edge at this y
-        if y1 == y2 == y:
-            x_start, x_end = min(x1, x2), max(x1, x2)
-            crossings.append(("h", x_start, x_end))
-        # Vertical edge crossing this y
-        elif y1 != y2 and min(y1, y2) < y <= max(y1, y2):
-            x_cross = x1 + (y - y1) * (x2 - x1) / (y2 - y1)
-            crossings.append(("v", x_cross, x_cross))
-
-    if not crossings:
-        return []
-
-    h_edges = [(int(s), int(e)) for typ, s, e in crossings if typ == "h"]
-    v_crosses = sorted([x for typ, x, _ in crossings if typ == "v"])
-
-    intervals = []
-    for idx in range(0, len(v_crosses) - 1, 2):
-        intervals.append((int(v_crosses[idx]), int(v_crosses[idx + 1])))
-
-    intervals.extend(h_edges)
-
-    if intervals:
-        intervals.sort()
-        merged = [intervals[0]]
-        for start, end in intervals[1:]:
-            if start <= merged[-1][1] + 1:
-                merged[-1] = (merged[-1][0], max(merged[-1][1], end))
-            else:
-                merged.append((start, end))
-        return merged
-
-    return []
 
 
 def solve(data):
