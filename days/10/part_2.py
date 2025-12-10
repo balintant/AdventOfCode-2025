@@ -40,7 +40,8 @@ def solve_integer_system(matrix, target):
     We want to find x such that Ax = b with x ≥ 0 and minimize sum(x).
 
     Uses RREF to identify free variables, then enumerates them with a proper bound:
-    sum(target) is an upper limit since that's the total "work" needed.
+    max(target) is an upper limit since no single button press can need more than
+    the maximum target value.
 
     Args:
         matrix: list of lists, where matrix[counter_idx][button_idx] = 1 if button affects counter
