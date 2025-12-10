@@ -327,8 +327,26 @@ Each solution file should follow this structure:
 - Use modulo arithmetic for circular/wrapping problems (e.g., `(position + offset) % max_value`)
 - **IMPORTANT**: Only use Python standard library modules - no pip packages or external dependencies
 - **CRITICAL**: When changing code structure (splitting files, changing function names, etc.), immediately update the day's README.md in the same session
-- **Remove dead code**: After solving, review for unused functions created during exploration. Remove helper functions that duplicate logic or are never called.
+- **Remove dead code**: After solving, review for unused functions created during exploration. Remove helper functions that duplicate logic or are never called. When adapting Part 1 code for Part 2, actively remove unused variables/parameters rather than commenting them as "unused".
 - **Add validation**: When making assumptions about data structure (e.g., "crossings come in pairs"), add explicit validation with clear error messages. Fail fast with descriptive errors rather than silently producing wrong results.
+
+#### Integer Programming and Optimization Algorithms
+
+When implementing optimization algorithms (ILP, branch-and-bound, etc.):
+
+1. **Integer Validation is Critical**: When solving integer linear programming problems using floating-point arithmetic (Gaussian elimination), you MUST validate that solutions are actually integers DURING the search, not just round at the end. Check `abs(value - round(value)) < epsilon` before accepting a solution. Fractional solutions that round "close enough" can produce wrong answers that pass example tests but fail on real input.
+
+2. **Performance Bounds**: When implementing branch-and-bound or enumeration algorithms:
+   - Test bounds carefully - a bound that's too large causes exponential blowup and timeouts
+   - Start with the tightest mathematically justified bound (e.g., `max(target)` not `sum(target)`)
+   - Solutions must complete in <30 seconds on actual input
+   - If a "reasonable" bound (like `sum(target)`) times out, it's NOT the right bound - find a tighter one
+
+3. **Test Coverage for Algorithm Bugs**: When you fix an algorithm bug (like integer validation), add a test case that:
+   - Specifically exercises the code path where the bug occurred
+   - Would fail with the buggy implementation but pass with the fixed one
+   - Uses an underdetermined system if the bug relates to optimization
+   - Is documented explaining what it's testing and why
 
 ### Documentation (README.md)
 

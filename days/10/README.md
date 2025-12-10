@@ -59,9 +59,57 @@ The puzzle provides three example machines:
 
 Additional tests verify each machine individually to ensure correct parsing and solving.
 
+### Part 2
+
+Part 2 changes the problem completely - now we're configuring joltage counters (integer values) instead of binary lights. See [part_2.py](part_2.py) for the implementation.
+
+**Key differences from Part 1:**
+
+1. **Integer values**: Counters start at 0 and can reach any non-negative integer (not just 0/1)
+2. **Additive instead of toggle**: Each button press increases counters by 1 (not toggle)
+3. **Same matrix structure**: Which buttons affect which counters remains the same
+
+**Algorithm:**
+
+This becomes a system of linear Diophantine equations: Ax = b where:
+- A[i][j] = 1 if button j affects counter i
+- x[j] = number of times button j is pressed
+- b[i] = target joltage for counter i
+
+We need: x ≥ 0 and minimize sum(x).
+
+**Solving approach:**
+
+1. Use Gaussian elimination to reduce to RREF (Reduced Row Echelon Form)
+2. Identify pivot variables (dependent) and free variables (independent)
+3. For systems with free variables:
+   - Enumerate combinations of free variable values
+   - For each combination, compute dependent variables
+   - Keep only valid solutions (all values ≥ 0)
+   - Return the solution with minimum sum
+4. For unique solutions: verify non-negativity and return
+
+**Example verification:**
+
+Machine 3: `{10,11,11,5,10,5}` with buttons `[[0,1,2,3,4], [0,3,4], [0,1,2,4,5], [1,2]]`
+
+Solution: Press buttons [5, 0, 5, 1]
+- Button 0: 5 times → affects [0,1,2,3,4] → add 5 to each
+- Button 2: 5 times → affects [0,1,2,4,5] → add 5 to each
+- Button 3: 1 time → affects [1,2] → add 1 to each
+- Result: [10, 11, 11, 5, 10, 5] ✓ (11 total presses)
+
+**Time Complexity**: O(n³ + k^f) where:
+- n = max(counters, buttons) for Gaussian elimination
+- f = number of free variables
+- k = upper bound on free variable values (typically max(target))
+
+For the puzzle input, systems typically have 0-2 free variables, making this tractable.
+
 ## Results
 
-- **Part 1**: 432 button presses
+- **Part 1**: 432 button presses (binary toggle problem)
+- **Part 2**: 18011 button presses (integer counter problem)
 
 ## Running the Solution
 
@@ -70,10 +118,16 @@ Additional tests verify each machine individually to ensure correct parsing and 
 python3 part_1.py              # Uses input.txt
 python3 part_1.py custom.txt   # Use custom input
 
-# Run tests
+# Run Part 2
+python3 part_2.py              # Uses input.txt
+python3 part_2.py custom.txt   # Use custom input
+
+# Run tests (both parts)
 python3 test.py
 
 # Using mise
 mise run solve 10 1            # Run Part 1
+mise run solve 10 2            # Run Part 2
+mise run solve 10              # Run both parts
 mise run test 10               # Run tests
 ```
