@@ -171,7 +171,7 @@ This project demonstrates:
 | 9   | ✅     | 4769758290 | 1588990708 |
 | 10  | ✅     | 432    | 18011  |
 | 11  | ✅     | 571    | 511378159390560 |
-| 12  | -      | -      | -      |
+| 12  | ✅     | 414    | ⭐ (narrative only) |
 
 ## About Advent of Code
 
